@@ -16,28 +16,20 @@ class Word_generator:
         Args:
             self (Hider): An instance of Hider.
         """
-        words=["Hello", "World", "Programming", "Encapsulation", "Abstraction", "Parrish", "Mexico", "Code", "Covid", "Omicron"]
+        words=["hello", "world", "programming", "encapsulation", "abstraction", "brotherparrish", "mexico", "code", "covid", "omicron"]
         self._word = random.choice(words)
         self._distance = [0, 0] # start with two so get_hint always works
     
    
     def is_match(self,letter):
-        """Whether or not the hider has been found.
+        """Whether or not the letter has a match.
 
         Args:
             self (word generator): An instance of word generator.
             letter the input of the user.
         Returns:
-            boolean: True if the letter was found in the word; false if otherwise.
+            boolean: True if the letter is match in the word; false if otherwise.
         """        
                   
         return  (letter in(self._word))
         
-    def watch_seeker(self, seeker):
-        """Watches the seeker by keeping track of how far away it is.
-
-        Args:
-            self (Hider): An instance of Hider.
-        """
-        distance = abs(self._location - seeker.get_location())
-        self._distance.append(distance)

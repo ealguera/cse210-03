@@ -23,7 +23,7 @@ class Director:
         """
         self._word_generator = Word_generator()
         self._is_playing = True
-        self._is_letter_matching = True # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
+        self._is_letter_matching = False # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
         
@@ -44,6 +44,7 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+       
         self._is_letter_matching = self._word_generator.is_match(self._terminal_service.read_number("\nGuess a letter [a-z]: "))
         # self._seeker.move_location(new_location)
 
