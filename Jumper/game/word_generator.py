@@ -16,7 +16,8 @@ class Word_generator:
         Args:
             self (Hider): An instance of Hider.
         """
-        self._word = random.choice("Hello", "World", "Programming", "Encapsulation", "Abstraction", "Parrish", "Mexico", "Code", "Covid", "Omicron")
+        words=["Hello", "World", "Programming", "Encapsulation", "Abstraction", "Parrish", "Mexico", "Code", "Covid", "Omicron"]
+        self._word = random.choice(words)
         self._distance = [0, 0] # start with two so get_hint always works
     
    
