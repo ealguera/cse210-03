@@ -23,6 +23,7 @@ class Director:
         """
         self._word_generator = Word_generator()
         self._is_playing = True
+        self._is_match = True
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
         
