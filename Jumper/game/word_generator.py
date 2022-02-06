@@ -20,17 +20,17 @@ class Word_generator:
         self._distance = [0, 0] # start with two so get_hint always works
     
    
-    def is_match(self):
+    def is_match(self,letter):
         """Whether or not the hider has been found.
 
         Args:
-            self (Hider): An instance of Hider.
-            
+            self (word generator): An instance of word generator.
+            letter the input of the user.
         Returns:
-            boolean: True if the hider was found; false if otherwise.
-        """
-      
-        return (self._distance[-1] == 0)
+            boolean: True if the letter was found in the word; false if otherwise.
+        """        
+                  
+        return  (letter in(self._word))
         
     def watch_seeker(self, seeker):
         """Watches the seeker by keeping track of how far away it is.
