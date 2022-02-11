@@ -27,7 +27,6 @@ class Director:
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
         self._hider = Hider()
-        self._life = 0
 
         # make the hint 
         self.hint = self._hider._hint(self._word_generator._word)
@@ -61,7 +60,7 @@ class Director:
             self (Director): An instance of Director.
         """
         #self._hider.watch_seeker(self._seeker)
-        self._hangman.update_chute(self._life)
+        self._hangman.update_chute(self._is_letter_matching)
         self._terminal_service.write_text(self._hider._word)
 
        
@@ -74,5 +73,6 @@ class Director:
 
         self.hint = self._hider._seeker(self.letter)
         self._terminal_service.write_text(''.join(self.hint))
-        if self.hint == self._hider._word:
+        if self._hangman._life >= 4:
             self._is_playing = False
+            self._terminal_service.write_text("game over!")

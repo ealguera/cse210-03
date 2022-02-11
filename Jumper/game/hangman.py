@@ -19,19 +19,21 @@ class Hangman:
                        "  O ",
                        " /|\ ",
                        " / \ "]
+    self._life = 0
   
   def update_chute(self, false_count):
     """
     Updates the parachute on the count of false boolean return.
     """
-    if false_count == 0:
+    self._life += 1 if false_count == False else 0
+    if self._life == 0:
       for x in range(len(self._parachute)):
         print(self._parachute[x])
 
-    elif false_count == 4:
+    elif self._life == 4:
       print("  x \n"
             " /|\ \n"
             " / \ \n")
     else:
-      for x in range(false_count, len(self._parachute)):
+      for x in range(self._life, len(self._parachute)):
         print(self._parachute[x])
