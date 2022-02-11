@@ -75,4 +75,7 @@ class Director:
         self._terminal_service.write_text(''.join(self.hint))
         if self._hangman._life >= 4:
             self._is_playing = False
-            self._terminal_service.write_text("game over!")
+            self._terminal_service.write_text("Game Over!")
+        elif ''.join(self.hint) == self._hider._word:
+            self._is_playing = False
+            self._terminal_service.write_text("Congratulations, you Win!")
