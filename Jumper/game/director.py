@@ -1,7 +1,7 @@
 from game.terminal_service import TerminalService
 from game.hangman import Hangman
 from game.word_generator import Word_generator 
-
+from game.hider import Hider
 
 class Director:
     """A person who directs the game. 
@@ -26,6 +26,11 @@ class Director:
         self._is_letter_matching = False # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
+        self._hider = Hider()
+        self._life = 0
+
+        # make the hint 
+        self.hint = self._hider._hint(self._word_generator._word)
         
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -44,9 +49,9 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-       
-        self._is_letter_matching = self._word_generator.is_match(self._terminal_service.read_number("\nGuess a letter [a-z]: "))
-        # self._seeker.move_location(new_location)
+        self.letter = self._terminal_service.read_number("\nGuess a letter [a-z]: ")
+        self._is_letter_matching = self._word_generator.is_match(self.letter)
+        #self._seeker.move_location(new_location)
 
         
     def _do_updates(self):
@@ -55,15 +60,19 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        self._hider.watch_seeker(self._seeker)
-        
+        #self._hider.watch_seeker(self._seeker)
+        self._hangman.update_chute(self._life)
+        self._terminal_service.write_text(self._hider._word)
+
+       
     def _do_outputs(self):
         """Provides a hint for the seeker to use.
 
         Args:
             self (Director): An instance of Director.
         """
-        hint = self._hider.get_hint()
-        self._terminal_service.write_text(hint)
-        if self._hider.is_found():
+
+        self.hint = self._hider._seeker(self.letter)
+        self._terminal_service.write_text(''.join(self.hint))
+        if self.hint == self._hider._word:
             self._is_playing = False
