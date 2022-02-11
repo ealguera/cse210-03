@@ -61,7 +61,6 @@ class Director:
         """
         #self._hider.watch_seeker(self._seeker)
         self._hangman.update_chute(self._is_letter_matching)
-        self._terminal_service.write_text(self._hider._word)
 
        
     def _do_outputs(self):
@@ -73,9 +72,7 @@ class Director:
 
         self.hint = self._hider._seeker(self.letter)
         self._terminal_service.write_text(''.join(self.hint))
-        if self._hangman._life >= 4:
-            self._is_playing = False
-            self._terminal_service.write_text("Game Over!")
-        elif ''.join(self.hint) == self._hider._word:
-            self._is_playing = False
-            self._terminal_service.write_text("Congratulations, you Win!")
+        self._is_playing = False if (self._hangman._life >= 4 or ''.join(self.hint) == self._hider._word)else True
+        
+        if self._hangman._life >= 4: self._terminal_service.write_text("Game Over!")
+        elif ''.join(self.hint) == self._hider._word: self._terminal_service.write_text("Congratulations, you Win!")
