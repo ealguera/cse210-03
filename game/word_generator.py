@@ -18,7 +18,8 @@ class Word_generator:
         """
         words=["hello", "world", "programming", "encapsulation", "abstraction", "brotherparrish", "mexico", "code", "covid", "omicron"]
         self._word = random.choice(words)
-        self._distance = [0, 0] # start with two so get_hint always works
+        self.letters = []
+        # self._distance = [0, 0] # start with two so get_hint always works
     
    
     def is_match(self,letter):
@@ -29,7 +30,21 @@ class Word_generator:
             letter the input of the user.
         Returns:
             boolean: True if the letter is match in the word; false if otherwise.
-        """        
-                  
-        return  (letter in(self._word))
+        """    
+        is_match = letter in(self._word)
+        if is_match:
+            self.letters.append(letter)
+
+        return is_match
+        
+    
+    def underscore(self):
+        phase = ''
+        for l in self._word:
+            if l in self.letters: 
+                phase += f'{l} '
+            else:
+                phase += "_ "
+        print(phase)
+    
         
