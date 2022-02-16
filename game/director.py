@@ -24,6 +24,7 @@ class Director:
         self._word_generator = Word_generator() 
         self._is_playing = True
         self._is_letter_matching = False # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
+        self.letter=''
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
         self._hider = Hider()
@@ -38,7 +39,7 @@ class Director:
             self (Director): an instance of Director.
         """
         while self._is_playing:
-            self._word_generator.underscore()
+            self._word_generator
             self._do_outputs()
             if self._is_playing:
                 self._get_inputs()
