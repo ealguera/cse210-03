@@ -1,50 +1,39 @@
 class Hangman:
+  """
+    The responsibility of Hangman is to display the parachute and delete the chute from top depending on the count of false boolean returns
+
+    Attributes:
+        _parachute (List[str]): List to make an image of parachute. 
+  """
   def __init__(self):
-    self._error = 0
-    self._man=  ['''
- ___
-/___\\
-\   /
- \ /
-  O
- /|\\
- / \\
-''',
-'''
-/___\\
-\   /
- \ /
-  O
- /|\\
- / \\
-''',
-'''
-\   /
- \ /
-  O
- /|\\
- / \\
-''',
-'''
- \ /
-  O
- /|\\
- / \\
-''',
-'''
-  x
- /|\\
- / \\
-''']
+    """
+    Constructs parachute
 
-  @property
-  def error(self):
-    return self._error
+    Args:
+      self (Hangman): An instance of Hangman
+    """
+    self._parachute = [" ___ ",
+                       "/___\ ",
+                       "\   / ",
+                       " \ / ",
+                       "  O ",
+                       " /|\ ",
+                       " / \ "]
+    self._life = 0
+  
+  def update_chute(self, false_count):
+    """
+    Updates the parachute on the count of false boolean return.
+    """
+    self._life += 1 if false_count == False else 0
+    if self._life == 0:
+      for x in range(len(self._parachute)):
+        print(self._parachute[x])
 
-  @error.setter
-  def error(self, error):
-    self._error = error
-
-  @property
-  def man(self):
-    return self._man
+    elif self._life == 4:
+      print("  x \n"
+            " /|\ \n"
+            " / \ \n")
+    else:
+      for x in range(self._life, len(self._parachute)):
+        print(self._parachute[x])

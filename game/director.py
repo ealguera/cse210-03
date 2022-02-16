@@ -1,7 +1,7 @@
 from game.terminal_service import TerminalService
 from game.hangman import Hangman
 from game.word_generator import Word_generator 
-
+from game.hider import Hider
 
 class Director:
     """A person who directs the game. 
@@ -26,6 +26,10 @@ class Director:
         self._is_letter_matching = False # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
         self._hangman = Hangman()
         self._terminal_service = TerminalService()
+        self._hider = Hider()
+
+        # make the hint 
+        self.hint = self._hider._hint(self._word_generator._word)
         
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -46,9 +50,9 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-       
-        self._is_letter_matching = self._word_generator.is_match(self._terminal_service.read_number("\nGuess a letter [a-z]: "))
-        # self._seeker.move_location(new_location)
+        self.letter = self._terminal_service.read_number("\nGuess a letter [a-z]: ")
+        self._is_letter_matching = self._word_generator.is_match(self.letter)
+        #self._seeker.move_location(new_location)
 
     
         
@@ -58,25 +62,20 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        # self._hider.watch_seeker(self._seeker)
-        if not self._is_letter_matching:
-            self._hangman.error += 1
+        #self._hider.watch_seeker(self._seeker)
+        self._hangman.update_chute(self._is_letter_matching)
 
-        
+       
     def _do_outputs(self):
         """Provides a hint for the seeker to use.
 
         Args:
             self (Director): An instance of Director.
         """
-        # hint = self._hider.get_hint()
-        # self._terminal_service.write_text(hint)
-        # if self._hider.is_found():
-        #     self._is_playing = False
-        print(self._hangman.man[self._hangman.error]) 
-        if self._hangman.error == 4:
-            print('You lose :(')
-            self._is_playing = False
 
-
-
+        self.hint = self._hider._seeker(self.letter)
+        self._terminal_service.write_text(''.join(self.hint))
+        self._is_playing = False if (self._hangman._life >= 4 or ''.join(self.hint) == self._hider._word)else True
+        
+        if self._hangman._life >= 4: self._terminal_service.write_text("Game Over!")
+        elif ''.join(self.hint) == self._hider._word: self._terminal_service.write_text("Congratulations, you Win!")
