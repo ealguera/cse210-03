@@ -21,7 +21,7 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self._word_generator = Word_generator()
+        self._word_generator = Word_generator() 
         self._is_playing = True
         self._is_letter_matching = False # this will hold the boolean value. that we can use as input for the method to delete the parachut lines
         self._hangman = Hangman()
@@ -38,9 +38,11 @@ class Director:
             self (Director): an instance of Director.
         """
         while self._is_playing:
-            self._get_inputs()
-            self._do_updates()
+            self._word_generator.underscore()
             self._do_outputs()
+            if self._is_playing:
+                self._get_inputs()
+                self._do_updates()
 
     def _get_inputs(self):
         """Moves the seeker to a new location.
@@ -52,6 +54,7 @@ class Director:
         self._is_letter_matching = self._word_generator.is_match(self.letter)
         #self._seeker.move_location(new_location)
 
+    
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
